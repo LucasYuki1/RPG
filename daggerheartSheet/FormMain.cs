@@ -108,7 +108,9 @@ namespace daggerheartSheet
                     nameLabel.AutoSize = true;
 
                     skillPanel.Tag = skill;
+                    nameLabel.Tag = skill;
                     skillPanel.Click += SkillPanel_Click;
+                    nameLabel.Click += SkillPanel_Click;
                     skillPanel.Controls.Add(nameLabel);
 
 
@@ -173,7 +175,9 @@ namespace daggerheartSheet
                     nameLabel.AutoSize = true;
 
                     itemPanel.Tag = item;
+                    nameLabel.Tag = item;
                     itemPanel.Click += ItemPanel_Click;
+                    nameLabel.Click += ItemPanel_Click;
                     itemPanel.Controls.Add(nameLabel);
 
                     flowLayoutInventory.Controls.Add(itemPanel);
@@ -183,9 +187,8 @@ namespace daggerheartSheet
 
         private void ItemPanel_Click(object sender, EventArgs e)
         {
-            Panel panel = (Panel)sender;
-
-            InventoryItem item = (InventoryItem)panel.Tag;
+            Control control = (Control)sender;
+            InventoryItem item = (InventoryItem)control.Tag;
 
             string message =
                 $"Nome: {item.Name}\n" +
@@ -202,8 +205,8 @@ namespace daggerheartSheet
 
         private void SkillPanel_Click(object sender, EventArgs e)
         {
-            Panel panel = (Panel)sender;
-            Skill skill = (Skill)panel.Tag;
+            Control control = (Control)sender;
+            Skill skill = (Skill)control.Tag;
 
 
             string message =
