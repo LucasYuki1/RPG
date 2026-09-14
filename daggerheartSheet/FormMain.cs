@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace daggerheartSheet
 {
@@ -72,26 +73,60 @@ namespace daggerheartSheet
                         Range = window.SkillRange,
                         Damage = window.SkillDamage,
                         Trait = window.SkillTrait,
-                        Domain = window.SkillDomain,
+                        Domain = window.SkillDomain
                     };
 
-                    if (window.SkillSource == "Classe/Subclasse")
+
+                    skillPanel.Width = 300;
+                    skillPanel.Height = 50;
+                    skillPanel.Margin = new Padding(5);
+
+
+                    if (skill.Source == "Classe/Subclasse")
                     {
                         skillPanel.BackColor = Color.LightBlue;
                     }
-                    else if (window.SkillSource == "Carta de Dominio")
+                    else if (skill.Source == "Carta de Dominio")
                     {
                         skillPanel.BackColor = Color.LightGreen;
                     }
-                    else if (window.SkillSource == "Ancestraldade/Comunidade")
+                    else if (skill.Source == "Ancestraldade/Comunidade")
                     {
                         skillPanel.BackColor = Color.LightYellow;
                     }
-                    else if (window.SkillSource == "Outro")
+                    else if (skill.Source == "Outro")
                     {
                         skillPanel.BackColor = Color.LightGray;
+                    }
 
 
+                    Label nameLabel = new Label();
+                    nameLabel.Text = skill.Name;
+                    nameLabel.ForeColor = Helper.GetContrastColor(skillPanel.BackColor);
+                    nameLabel.Font = new Font("Segoe UI", 11, FontStyle.Bold);
+                    nameLabel.Location = new Point(10, 10);
+                    nameLabel.AutoSize = true;
+
+                    skillPanel.Tag = skill;
+                    skillPanel.Click += SkillPanel_Click;
+                    skillPanel.Controls.Add(nameLabel);
+
+
+                    if (skill.Source == "Classe/Subclasse")
+                    {
+                        flowLayoutClass.Controls.Add(skillPanel);
+                    }
+                    else if (skill.Source == "Carta de Dominio")
+                    {
+                        flowLayoutDomain.Controls.Add(skillPanel);
+                    }
+                    else if (skill.Source == "Ancestraldade/Comunidade")
+                    {
+                        flowLayoutHeritage.Controls.Add(skillPanel);
+                    }
+                    else if (skill.Source == "Outros")
+                    {
+                        flowLayoutOther.Controls.Add(skillPanel);
                     }
                 }
             }
@@ -145,6 +180,7 @@ namespace daggerheartSheet
                 }
             }
         }
+
         private void ItemPanel_Click(object sender, EventArgs e)
         {
             Panel panel = (Panel)sender;
@@ -160,6 +196,27 @@ namespace daggerheartSheet
                 $"Trait: {item.Trait}\n" +
                 $"Alcance: {item.Range}\n" +
                 $"Dano: {item.Damage}";
+
+            MessageBox.Show(message, "Informações do Item");
+        }
+
+        private void SkillPanel_Click(object sender, EventArgs e)
+        {
+            Panel panel = (Panel)sender;
+            Skill skill = (Skill)panel.Tag;
+
+
+            string message =
+                $"Nome: {skill.Name}\n" +
+                $"Fonte: {skill.Source}\n" +
+                $"Descrição: {skill.Description}\n" +
+                $"Tipo: {skill.Type}\n" +
+                $"Domínio: {skill.Domain}\n" +
+                $"Trait: {skill.Trait}\n" +
+                $"Alcance: {skill.Range}\n" +
+                $"Dano: {skill.Damage}\n" +
+                $"Recall: {skill.RecallCost}";
+            ;
 
             MessageBox.Show(message, "Informações do Item");
         }
