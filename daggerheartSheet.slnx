@@ -1,3 +1,4 @@
 <Solution>
   <Project Path="daggerheartSheet/daggerheartSheet.csproj" Id="f2e7e2cf-ec28-4df3-9cae-026a6ca13a9b" />
+  <Project Path="daggerheartSheetWpf/daggerheartSheetWpf.csproj" Id="204f9ba7-4d22-4dce-9359-44cce1c9ed60" />
 </Solution>
